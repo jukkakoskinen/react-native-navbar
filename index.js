@@ -23,6 +23,7 @@ const TitleShape = {
 
 const StatusBarShape = {
   style: PropTypes.oneOf(['light-content', 'default']),
+  ignore: PropTypes.bool,
   hidden: PropTypes.bool,
   tintColor: PropTypes.string,
   hideAnimation: PropTypes.oneOf(['fade', 'slide', 'none']),
@@ -93,6 +94,7 @@ export default class NavigationBar extends Component {
     title: null,
     statusBar: {
       style: 'default',
+      ignore: false,
       hidden: false,
       hideAnimation: 'slide',
       showAnimation: 'slide',
@@ -110,7 +112,7 @@ export default class NavigationBar extends Component {
 
   customizeStatusBar() {
     const { statusBar } = this.props;
-    if (Platform.OS === 'ios') {
+    if (!statusBar.ignore && Platform.OS === 'ios') {
       if (statusBar.style) {
         StatusBar.setBarStyle(statusBar.style);
       }
